@@ -14,5 +14,5 @@ Usage
 -----
 
 ```sh
-$ create-python-package --name newpackage /path/to/newpackage
+$ create-python-package ./newpackage
 ```

@@ -1,0 +1,15 @@
+---
+version: '3'
+
+services:
+  create-python-package:
+    container_name: create-python-package
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dceoy/create-python-package:latest
+    volumes:
+      - ${PWD}:/wd
+    working_dir: /wd
+    entrypoint:
+      - create-python-package
