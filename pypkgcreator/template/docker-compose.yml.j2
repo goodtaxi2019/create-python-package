@@ -1,0 +1,15 @@
+---
+version: '3'
+
+services:
+  {{ package_name }}:
+    container_name: {{ package_name }}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      image: {{ user_name }}/{{ package_name }}:latest
+    volumes:
+      - ${PWD}:/wd
+    working_dir: /wd
+    entrypoint:
+      - {{ package_name }}
