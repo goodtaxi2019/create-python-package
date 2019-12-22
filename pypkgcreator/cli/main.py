@@ -25,7 +25,7 @@ from pathlib import PurePath
 from docopt import docopt
 
 from .. import __version__
-from .util import (fetch_description_from_readme, fetch_git_config,
+from .util import (fetch_description_from_readme, fetch_git_config, print_log,
                    render_template, set_log_config)
 
 
@@ -74,3 +74,7 @@ def _create_python_package_scaffold(args, include_package_data=True,
     ]
     for f in dest_files:
         render_template(data=data, output_path=str(repo_path.joinpath(f)))
+    dockerignore = repo_path.joinpath('.dockerignore')
+    if not dockerignore.exists():
+        print_log('Create a symlink:\t{}'.format(dockerignore))
+        os.symlink('.gitignore', str(dockerignore))

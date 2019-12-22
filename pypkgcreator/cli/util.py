@@ -75,7 +75,7 @@ def render_template(output_path, data=None, template=None):
     if Path(output_path).exists:
         logger.info('Skip rendering a file:\t{}'.format(output_path))
     else:
-        _print_log('Render a file:\t{}'.format(output_path))
+        print_log('Render a file:\t{}'.format(output_path))
         if data is not None:
             with open(output_path, 'w') as f:
                 f.write(
@@ -99,7 +99,7 @@ def render_template(output_path, data=None, template=None):
             )
 
 
-def _print_log(message):
+def print_log(message):
     logger = logging.getLogger(__name__)
     logger.info(message)
     print('>>\t{}'.format(message), flush=True)
