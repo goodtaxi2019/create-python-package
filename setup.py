@@ -20,7 +20,7 @@ setup(
     include_package_data=True,
     install_requires=['docopt', 'jinja2'],
     entry_points={
-        'console_scripts': ['create-python-package=pypkgcreator.cli:main'],
+        'console_scripts': ['create-python-package=pypkgcreator.cli.main:main'],
     },
     classifiers=[
         'Development Status :: 3 - Alpha',

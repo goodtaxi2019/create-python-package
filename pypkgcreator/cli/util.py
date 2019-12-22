@@ -4,7 +4,7 @@ import logging
 import re
 import shutil
 from configparser import ConfigParser
-from pathlib import Path, PurePath
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -36,12 +36,12 @@ def fetch_git_config(repo_path):
     local_gitconfig = Path(repo_path).joinpath('.git/config')
     local_cf = (
         _read_config_file(path=str(local_gitconfig))
-        if local_gitconfig.exists else dict()
+        if local_gitconfig.is_file() else dict()
     )
     global_gitconfig = Path.home().joinpath('.gitconfig')
     global_cf = (
         _read_config_file(path=str(global_gitconfig))
-        if global_gitconfig.exists else dict()
+        if global_gitconfig.is_file() else dict()
     )
     if local_cf.get('user'):
         author = str(local_cf['user'].get('name'))
@@ -72,7 +72,7 @@ def _read_config_file(path):
 
 def render_template(output_path, data=None, template=None):
     logger = logging.getLogger(__name__)
-    if Path(output_path).exists:
+    if Path(output_path).is_file():
         logger.info('Skip rendering a file:\t{}'.format(output_path))
     else:
         print_log('Render a file:\t{}'.format(output_path))
@@ -81,18 +81,18 @@ def render_template(output_path, data=None, template=None):
                 f.write(
                     Environment(
                         loader=FileSystemLoader(
-                            str(PurePath(__file__).joinpath('../template')),
+                            str(Path(__file__).parent.joinpath('../template')),
                             encoding='utf8'
                         )
                     ).get_template(
-                        template or (PurePath(output_path).name + '.j2')
-                    ).render(data).encode('utf-8')
+                        template or (Path(output_path).name + '.j2')
+                    ).render(data)
                 )
         else:
             shutil.copyfile(
                 str(
-                    PurePath(__file__).joinpath('../static').joinpath(
-                        template or PurePath(output_path).name
+                    Path(__file__).parent.joinpath('../static').joinpath(
+                        template or Path(output_path).name
                     )
                 ),
                 output_path
