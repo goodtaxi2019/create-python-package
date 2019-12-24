@@ -43,7 +43,7 @@ def _create_python_package_scaffold(args, include_package_data=True,
                                     create_dockerfile=True):
     repo_path = Path(args['<path>']).resolve()
     package_name = args['--module'] or repo_path.name
-    package_path = repo_path.joinpath(re.sub(r'[\.\-]', '_', package_name))
+    package_path = repo_path.joinpath(re.sub(r'[\.\-]', '', package_name))
     if not package_path.is_dir():
         print_log('Make a directory:\t{}'.format(package_path))
         package_path.mkdir()

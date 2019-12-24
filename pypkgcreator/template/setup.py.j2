@@ -2,21 +2,21 @@
 
 from setuptools import find_packages, setup
 
-from pypkgcreator import __version__
+from {{ module_name }} import __version__
 
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-setuptools.setup(
+setup(
     name='{{ package_name }}',
-    version='{{ version }}',
+    version=__version__,
     author='{{ author }}',
     author_email='{{ author_email }}',
     description='{{ description }}',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='{{ url }}',
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     include_package_data={{ include_package_data }},
     install_requires=['docopt'],
     entry_points={
